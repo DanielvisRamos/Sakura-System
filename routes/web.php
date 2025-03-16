@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 //crear usuario admin
 Route::get('/crear-admin', [AuthController::class,'crearAdmin'])->name('crearAdmin');
@@ -31,4 +32,25 @@ Route::prefix('contraseña')->middleware("auth")->group(function () {
 Route::prefix('perfil')->middleware('auth')->group(function () {
     // Mostrar el formulario de mi perfil
     Route::get('/', [AuthController::class, 'showProfile'])->name('perfil');
+});
+
+//ruta de usuarios
+Route::prefix('usuarios')->middleware('auth')->group(function () {
+    // Listar usuarios
+    Route::get('/', [UserController::class, 'index'])->name('usuarios.index');
+
+    // Mostrar formulario de creación
+    Route::get('/crear', [UserController::class, 'create'])->name('usuarios.create');
+
+    // Guardar un nuevo usuario
+    Route::post('/', [UserController::class, 'store'])->name('usuarios.store');
+
+    // Mostrar formulario de edición
+    Route::get('/{id}/editar', [UserController::class, 'edit'])->name('usuarios.edit');
+
+    // Actualizar un usuario
+    Route::put('/{id}', [UserController::class, 'update'])->name('usuarios.update');
+
+    // Eliminar un usuario
+    Route::delete('/{id}', [UserController::class, 'destroy'])->name('usuarios.destroy');
 });
