@@ -1,11 +1,20 @@
 @extends('layouts.main')
 @section('titulo', $titulo)
-<!--Lo hice yo prf 👍 Danielvis Ramos-->
 @section('contenido')
     <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Cambiar Contraseña</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Cambio de Contraseña</li>
+                </ol>
+            </nav>
+        </div>
+
         <div class="row justify-content-sm-start">
             <div class="col-md-8">
-                <div class="card">
+                <div class="card mt-3">
                     <div class="card-header">{{ __('Cambiar Contraseña') }}</div>
 
                     <div class="card-body">
@@ -14,7 +23,7 @@
                             @csrf
 
                             <!-- Contraseña Actual -->
-                            <div class="mb-3">
+                            <div class="mb-3 mt-2">
                                 <label for="current_password" class="form-label">{{ __('Contraseña Actual') }}</label>
                                 <input type="password" name="current_password" class="form-control" required>
                                 @error('current_password')
