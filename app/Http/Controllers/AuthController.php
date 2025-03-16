@@ -107,4 +107,11 @@ class AuthController extends Controller
         // Redirigir con un mensaje de éxito
         return redirect()->route('home')->with('success', 'Contraseña cambiada exitosamente.');
     }
+    //Mostrar informacion de Mi perfil
+    public function showProfile()
+    {
+        $titulo = "Mi Perfil";
+        $user = Auth::user(); // Obtener el usuario autenticado
+        return view('modules.auth.profile', compact('titulo', 'user'));
+    }
 }

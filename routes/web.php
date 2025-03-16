@@ -27,3 +27,8 @@ Route::prefix('contraseña')->middleware("auth")->group(function () {
     Route::post('/cambiar-contraseña', [AuthController::class, 'changePassword'])->name('contraseña-cambiar.post');
 });
 
+//ruta de perfil
+Route::prefix('perfil')->middleware('auth')->group(function () {
+    // Mostrar el formulario de mi perfil
+    Route::get('/', [AuthController::class, 'showProfile'])->name('perfil');
+});
