@@ -10,8 +10,15 @@
         <!-- Enlace al módulo de usuarios -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('usuarios.index') }}">
-                <i class="bi bi-people-fill"></i>
+                <i class="bi bi-person-fill"></i>
                 <span>Usuarios</span>
+            </a>
+        </li>
+        <!-- Enlace al módulo de usuarios simple -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('usuarios_simple.index') }}">
+                <i class="bi bi-people-fill"></i>
+                <span>Usuarios Simple</span>
             </a>
         </li>
     </ul>
