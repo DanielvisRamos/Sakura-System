@@ -28,7 +28,7 @@
                                         <button type="submit" class="btn btn-primary">Buscar</button>
                                     </form>
                                 </div>
-                                
+
                             </div>
 
                             <!-- Selector de registros por página -->
@@ -36,10 +36,14 @@
                                 <div class="col-md-3">
                                     <form action="{{ route('usuarios_simple.index') }}" method="GET" class="input-group">
                                         <select name="per_page" class="form-select" onchange="this.form.submit()">
-                                            <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5 por página</option>
-                                            <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10 por página</option>
-                                            <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20 por página</option>
-                                            <option value="30" {{ $perPage == 30 ? 'selected' : '' }}>30 por página</option>
+                                            <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5 por página
+                                            </option>
+                                            <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10 por página
+                                            </option>
+                                            <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20 por página
+                                            </option>
+                                            <option value="30" {{ $perPage == 30 ? 'selected' : '' }}>30 por página
+                                            </option>
                                         </select>
                                     </form>
                                 </div>
@@ -64,7 +68,8 @@
                                                     data-bs-target="#modaldetails{{ $usuario->id }}"><i
                                                         class="fa-solid fa-eye"></i></a>
                                                 <a href="{{ route('usuarios_simple.edit', $usuario->id) }}"
-                                                    class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                    class="btn btn-sm btn-warning"><i
+                                                        class="fa-solid fa-pen-to-square"></i></a>
                                             </td>
                                         </tr>
                                         <!-- Modal de details -->
@@ -93,8 +98,24 @@
                                                                     <span>Inactivo</span>
                                                                 @endif
                                                             </li>
+                                                            <li class="list-group-item">
+                                                                <b>Creado por:</b>
+                                                                @php
+                                                                    // Obtener el nombre del usuario que creó este registro
+                                                                    $creator = DB::table('users')
+                                                                        ->where('id', $usuario->created_by)
+                                                                        ->first();
+                                                                @endphp
+                                                                @if ($creator)
+                                                                    {{ $creator->name }} ({{ $creator->rol }})
+                                                                @else
+                                                                    <span>Desconocido</span>
+                                                                @endif
+                                                            </li>
                                                             <li class="list-group-item"><b>Rol: </b> {{ $usuario->rol }}
                                                             </li>
+                                                            <li class="list-group-item"><b>Fecha de Creacion: </b>{{$usuario->created_at}}</li>
+                                                            <li class="list-group-item"><b>Fecha de Edicion: </b>{{$usuario->updated_at}}</li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -115,7 +136,8 @@
                                             </li>
                                         @else
                                             <li class="page-item">
-                                                <a class="page-link" href="{{ $usuarios->previousPageUrl() }}" rel="prev">&laquo;</a>
+                                                <a class="page-link" href="{{ $usuarios->previousPageUrl() }}"
+                                                    rel="prev">&laquo;</a>
                                             </li>
                                         @endif
 
@@ -129,7 +151,8 @@
                                         <!-- Botón "Siguiente" -->
                                         @if ($usuarios->hasMorePages())
                                             <li class="page-item">
-                                                <a class="page-link" href="{{ $usuarios->nextPageUrl() }}" rel="next">&raquo;</a>
+                                                <a class="page-link" href="{{ $usuarios->nextPageUrl() }}"
+                                                    rel="next">&raquo;</a>
                                             </li>
                                         @else
                                             <li class="page-item disabled">
@@ -143,7 +166,8 @@
                             <!-- Información de paginación -->
                             <div class="d-flex justify-content-end mt-2">
                                 <p class="text-muted">
-                                    Mostrando {{ $usuarios->firstItem() }} a {{ $usuarios->lastItem() }} de {{ $usuarios->total() }} registros
+                                    Mostrando {{ $usuarios->firstItem() }} a {{ $usuarios->lastItem() }} de
+                                    {{ $usuarios->total() }} registros
                                 </p>
                             </div>
                         </div>

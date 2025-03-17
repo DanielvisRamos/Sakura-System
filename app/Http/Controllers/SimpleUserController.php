@@ -65,6 +65,7 @@ class SimpleUserController extends Controller
             'password' => Hash::make($request->password),
             'rol' => $request->rol,
             'activo' => $request->activo,
+            'created_by' => Auth::id(), // Registrar quién creó al usuario
             'created_at' => now(),
             'updated_at' => now(),
         ]);

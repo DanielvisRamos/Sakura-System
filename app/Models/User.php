@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',      // Correo electrónico del usuario
         'password',   // Contraseña del usuario (se almacena encriptada)
         'activo',     // Estado del usuario (activo/inactivo)
+        'created_by', // Quien creó el registro
         'rol',        // Rol del usuario (admin/user)
     ];
 
@@ -71,5 +72,16 @@ class User extends Authenticatable
     public function getRolAttribute($value)
     {
         return ucfirst($value); // Convertir el valor a mayúscula inicial
+    }
+
+    /**
+     * Relación con el usuario creador.
+     * Un usuario puede ser creado por otro usuario.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

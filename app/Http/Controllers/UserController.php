@@ -16,7 +16,7 @@ class UserController extends Controller
         $perPage = $request->input('per_page', 5); // Valor por defecto: 5 registros por página
 
         $usuarios = DB::table('users')
-            ->where('rol', 'admin')
+            ->where('rol', 'Admin')
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', "%$search%")
                     ->orWhere('email', 'like', "%$search%");
@@ -58,13 +58,14 @@ class UserController extends Controller
             'activo.boolean' => 'El estado debe ser activo o inactivo.',
         ]);
 
-        // Crear el usuario
+        // Crear el usuario con Query Builder
         DB::table('users')->insert([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'rol' => $request->rol,
             'activo' => $request->activo,
+            'created_by' => Auth::id(), // Registrar quién creó al usuario
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -117,17 +118,9 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
         }
 
-        // Actualizar el usuario
+        // Actualizar el usuario con Query Builder
         DB::table('users')->where('id', $id)->update($data);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado exitosamente.');
-    }
-
-
-    // Eliminar un usuario
-    public function destroy($id)
-    {
-        DB::table('users')->where('id', $id)->delete();
-        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado exitosamente.');
     }
 }
